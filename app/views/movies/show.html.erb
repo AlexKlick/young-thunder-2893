@@ -1,0 +1,9 @@
+<%= @movie.title%>
+<%= @movie.creation_year%>
+<%= @movie.genre%>
+
+<% @actors.each do |actor|%>
+ <%= actor.name %>
+<% end %>
+
+<p>Average age of actors: <%= @average_age%></p>

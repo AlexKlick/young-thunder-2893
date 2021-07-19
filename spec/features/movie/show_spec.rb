@@ -5,16 +5,15 @@ describe 'movie show page' do
     @movie1 = Movie.create(title:"The Matrix", creation_year:1999, genre:"Sci-Fi", studio_id: @studio.id)
     @movie2 = Movie.create(title:"Inception", creation_year:2010, genre:"Sci-Fi", studio_id: @studio.id)
     @movie3 = Movie.create(title:"The Matrix Reloaded", creation_year:2002, genre:"Sci-Fi", studio_id: @studio.id)
-    @actor1 = Actor.create(name:"Lawrence Fishbourne", age:59, currently_working:true)
-    @actor2 = Actor.create(name:"Keanu Reeves", age:56, currently_working:true)
-    @actor3 = Actor.create(name:"Gloria Foster", age:67, currently_working:false)
-    @actor4 = Actor.create(name:"Jada Pinkett Smith", age:49, currently_working:true)
-    amove1 = ActorMovie.create(movie_id: @movie1.id, actor_id:@actor1.id)
-    amove2 = ActorMovie.create(movie_id: @movie1.id, actor_id:@actor2.id)
-    amove3 = ActorMovie.create(movie_id: @movie1.id, actor_id:@actor3.id)
-    amove4 = ActorMovie.create(movie_id: @movie3.id, actor_id:@actor2.id)
-    amove5 = ActorMovie.create(movie_id: @movie3.id, actor_id:@actor4.id)
-
+    @actor1 = Actor.create(name:"Lawrence Fishbourne", age:59)
+    @actor2 = Actor.create(name:"Keanu Reeves", age:56)
+    @actor3 = Actor.create(name:"Gloria Foster", age:67)
+    @actor4 = Actor.create(name:"Jada Pinkett Smith", age:49)
+    amove1 = MovieActor.create(movie_id: @movie1.id, actor_id:@actor1.id)
+    amove2 = MovieActor.create(movie_id: @movie1.id, actor_id:@actor2.id)
+    amove3 = MovieActor.create(movie_id: @movie1.id, actor_id:@actor3.id)
+    amove4 = MovieActor.create(movie_id: @movie3.id, actor_id:@actor2.id)
+    amove5 = MovieActor.create(movie_id: @movie3.id, actor_id:@actor4.id)
     visit "/movies/#{@movie1.id}"
 
   end
@@ -35,9 +34,8 @@ describe 'movie show page' do
   end
 
   it 'has the actors listed from youngest to oldest' do
-    expect(page).to have_content(@actor1.name)
-    expect(page).to have_content(@actor2.name)
-    expect(page).to have_content(@actor3.name)
+    expect(@actor2.name).to appear_before(@actor1.name)
+    expect(@actor1.name).to appear_before(@actor3.name)
     #doesn't have actor 4 in movie
     expect(page).to_not have_content(@actor4.name)
   end
