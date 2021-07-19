@@ -1,9 +1,20 @@
 <%= @movie.title%>
 <%= @movie.creation_year%>
 <%= @movie.genre%>
-
-<% @actors.each do |actor|%>
- <%= actor.name %>
-<% end %>
+<div id="actors">
+  <% @actors.each do |actor|%>
+    <%= actor.name %>
+  <% end %>
+</div>
 
 <p>Average age of actors: <%= @average_age%></p>
+
+<%= bootstrap_form_tag url: "/movies/#{@movie.id}/actors", method: :post do |form| %>
+  <%= form.form_group :actor_id, label: { text: "Select and Actor to add" } do %>
+    <% @all_actors.each do |actor| %>
+      <%=form.radio_button :actor_id, actor.id, label: "#{actor.name}" %>
+    <% end %>
+  <% end %>
+  <%= form.text_field :name %>
+  <%= form.submit 'submit' %>
+<% end %>

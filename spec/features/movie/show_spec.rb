@@ -34,10 +34,12 @@ describe 'movie show page' do
   end
 
   it 'has the actors listed from youngest to oldest' do
-    expect(@actor2.name).to appear_before(@actor1.name)
-    expect(@actor1.name).to appear_before(@actor3.name)
-    #doesn't have actor 4 in movie
-    expect(page).to_not have_content(@actor4.name)
+    within('div#actors') do
+      expect(@actor2.name).to appear_before(@actor1.name)
+      expect(@actor1.name).to appear_before(@actor3.name)    
+      #doesn't have actor 4 in movie
+      expect(page).to_not have_content(@actor4.name)
+    end
   end
 
   it 'has the average age of all of the actors' do
@@ -53,7 +55,9 @@ describe 'movie show page' do
 # (You do not have to test for a sad path, for example if the name submitted is not an existing actor)
 
   it 'does not have actors not in the movie' do
-    expect(page).to_not have_content(@actor4.name)
+    within('div#actors') do
+      expect(page).to_not have_content(@actor4.name)
+    end
   end
 
   it 'has a form to add an actor, which allows to add actors that exist to the movie' do
