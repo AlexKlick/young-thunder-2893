@@ -7,4 +7,9 @@ class Movie < ApplicationRecord
     actors.order(age: :asc)
   end
 
+  def self.worked_with
+    joins(:actors)
+    .pluck('actors.name')
+    .uniq
+  end
 end

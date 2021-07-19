@@ -12,7 +12,7 @@ describe 'movie show page' do
     amove1 = MovieActor.create(movie_id: @movie1.id, actor_id:@actor1.id)
     amove2 = MovieActor.create(movie_id: @movie1.id, actor_id:@actor2.id)
     amove3 = MovieActor.create(movie_id: @movie1.id, actor_id:@actor3.id)
-    amove4 = MovieActor.create(movie_id: @movie3.id, actor_id:@actor2.id)
+    amove4 = MovieActor.create(movie_id: @movie3.id, actor_id:@actor1.id)
     amove5 = MovieActor.create(movie_id: @movie3.id, actor_id:@actor4.id)
 
     visit "/actors/#{@actor1.id}"
