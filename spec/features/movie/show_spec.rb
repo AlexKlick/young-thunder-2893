@@ -45,4 +45,23 @@ describe 'movie show page' do
   it 'has the average age of all of the actors' do
     expect(page).to have_content("Average age of actors: #{(@actor1.age + @actor2.age + @actor3.age) / 3}")
   end
+
+# I do not see any actors listed that are not part of the movie
+# And I see a form to add an actor to this movie
+# When I fill in the form with the name of an actor that exists in the database
+# And I click submit
+# Then I am redirected back to that movie's show page
+# And I see the actor's name is now listed
+# (You do not have to test for a sad path, for example if the name submitted is not an existing actor)
+
+  it 'does not have actors not in the movie' do
+    expect(page).to_not have_content(@actor4.name)
+  end
+
+  it 'has a form to add an actor, which allows to add actors that exist to the movie' do
+    fill_in 'name', with: 'Jada Pinkett Smith'
+    click_on 'commit'
+    expect(current_path).to eq("/movies/#{@movie1.id}")
+    expect(page).to have_content(@actor4.name)
+  end
 end
